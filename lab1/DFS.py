@@ -2,20 +2,22 @@ import GameBoard as gb
 
 def dfs(initial_state): 
     STACK = []
-    VISITED = set()
+    states = set()
+    VISITED = {}
     
-    STACK.append((initial_state,[]))
+    STACK.append((initial_state, None, None))
+    states.add(initial_state)
     
     while STACK:
-        state,path = STACK.pop()
-        if state in VISITED:
-            continue
-        VISITED.add(state)
+        state,parent,last_move = STACK.pop()
+        states.remove(state)
+        VISITED[state] = (parent,last_move)
         
         if gb.is_goal(state):
-            return path
+            return gb.get_path(VISITED, state)
         
         for move,neighbour in gb.get_neighbours(state).items():
-            if  neighbour not in VISITED:
-                STACK.append((neighbour, path + [move]))
+            if  neighbour not in VISITED and neighbour not in states:
+                STACK.append((neighbour, state, move))
+                states.add(neighbour)
     return None

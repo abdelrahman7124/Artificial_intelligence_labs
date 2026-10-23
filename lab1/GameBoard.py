@@ -23,3 +23,11 @@ def get_neighbours(state):
             neighbours[move] = tuple(new_state)
             
     return neighbours
+
+def get_path(VISITED, state):
+    path = []
+    parent, move = VISITED[state]
+    while parent is not None:         
+        path.append(move)
+        parent, move = VISITED[parent]
+    return path[::-1]
