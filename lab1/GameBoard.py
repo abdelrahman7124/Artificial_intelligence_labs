@@ -27,7 +27,9 @@ def get_neighbours(state):
 
 def get_path_from_node(node):
     path = []
+    cost = 0
     while node[1] is not None:
         path.append(node[2])
         node = node[1]
-    return path[::-1]
+        cost += 1
+    return path[::-1],cost
