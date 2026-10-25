@@ -1,5 +1,6 @@
 import DFS as dfs
 import BFS as bfs
+import IDS as ids
 import GameBoard as gb
 
 
@@ -7,8 +8,12 @@ import GameBoard as gb
 intial_state = (1, 2, 7, 3, 4, 0, 6, 8, 5) 
 result_dfs = dfs.dfs(intial_state)
 result_bfs = bfs.bfs(intial_state)
+result_ids = ids.ids(intial_state)
 
-
+if result_ids is not None:
+    path = result_ids
+    print("Path to goal:", path)
+else: print("No path found to the goal state.")
 
 if result_bfs is not None:
     path = result_bfs

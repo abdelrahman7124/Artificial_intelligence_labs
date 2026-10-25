@@ -1,8 +1,8 @@
 GOAL_STATE = ( 0, 1, 2, 3, 4, 5, 6, 7, 8)
-MOVES = {"UP": (-1, 0),
-         "DOWN": (1, 0), 
-         "LEFT":(0, -1),
-         "RIGHT":(0, 1)
+MOVES = {"UP":    (-1, 0),
+         "DOWN":  ( 1, 0), 
+         "LEFT":  ( 0,-1),
+         "RIGHT": ( 0, 1)
         }
 
 def is_goal(state):
@@ -24,10 +24,10 @@ def get_neighbours(state):
             
     return neighbours
 
-def get_path(VISITED, state):
+
+def get_path_from_node(node):
     path = []
-    parent, move = VISITED[state]
-    while parent is not None:         
-        path.append(move)
-        parent, move = VISITED[parent]
+    while node[1] is not None:
+        path.append(node[2])
+        node = node[1]
     return path[::-1]
