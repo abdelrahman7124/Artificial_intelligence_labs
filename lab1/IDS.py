@@ -2,11 +2,9 @@ import GameBoard as gb
 
 def dls(initial_state,max_depth):
     STACK = []
-    states = set()
     cutoff_occurred = False
     
     STACK.append((initial_state,None,None,0))
-    states.add(initial_state)
     
     while STACK:
         node = STACK.pop()
@@ -18,8 +16,7 @@ def dls(initial_state,max_depth):
         
         if level < max_depth:
             for move,neighbour in gb.get_neighbours(state).items():
-                if neighbour not in states :
-                    STACK.append((neighbour,node,move, level + 1))
+                STACK.append((neighbour,node,move, level + 1))
         else:
             cutoff_occurred = True
         

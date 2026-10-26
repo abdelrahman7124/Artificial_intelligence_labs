@@ -6,12 +6,12 @@ import GameBoard as gb
 
 
 
-intial_state = (1, 2, 7, 3, 4, 0, 6, 8, 5) 
-result_dfs,cost_dfs = dfs.dfs(intial_state)
-result_bfs,cost_bfs = bfs.bfs(intial_state)
-result_ids,cost_ids = ids.ids(intial_state)
-result_a_star_manhattan,cost_a_star_manhattan = a_star.a_star(intial_state,"manhattan")
-result_a_star_euclidean,cost_a_star_euclidean = a_star.a_star(intial_state,"euclidean")
+initial_state = (1, 2, 7, 3, 4, 0, 6, 8, 5) 
+result_dfs,cost_dfs = dfs.dfs(initial_state)
+result_bfs,cost_bfs = bfs.bfs(initial_state)
+result_ids,cost_ids = ids.ids(initial_state)
+result_a_star_manhattan,cost_a_star_manhattan = a_star.a_star(initial_state,"manhattan")
+result_a_star_euclidean,cost_a_star_euclidean = a_star.a_star(initial_state,"euclidean")
 
 
 

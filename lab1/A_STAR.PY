@@ -5,6 +5,8 @@ import heapq as hq
 def get_heuristic_manhattan_distance(state):
     sum_heuristic = 0
     for i in range (9):
+        if state[i] == 0:
+            continue
         current_position = (i // 3, i % 3)
         goal_position = gb.GOAL_STATE_POSITIONS[state[i]]
         manhattan_distance = abs(current_position[0] - goal_position[0]) + abs(current_position[1] - goal_position[1])
@@ -14,6 +16,8 @@ def get_heuristic_manhattan_distance(state):
 def get_heuristic_euclidean_distance(state):
     sum_heuristic = 0
     for i in range (9):
+        if state[i] == 0:
+            continue
         current_position = (i // 3, i % 3)
         goal_position = gb.GOAL_STATE_POSITIONS[state[i]]
         euclidean_distance = ((current_position[0] - goal_position[0]) ** 2 + (current_position[1] - goal_position[1]) ** 2) ** 0.5
@@ -29,7 +33,6 @@ heuristics = {
 
 
 
-
 def a_star(initial_state,heuristic_type):
     heuristic_function = heuristics[heuristic_type]
     queue = []
@@ -41,8 +44,9 @@ def a_star(initial_state,heuristic_type):
     states[initial_state] = 0
 
     while queue:
-        cost, node = hq.heappop(queue)
+        _, node = hq.heappop(queue)
         state, parent, last_move, level = node
+        visited.add(state)
 
         if gb.is_goal(state):
             return gb.get_path_from_node(node)
@@ -61,7 +65,5 @@ def a_star(initial_state,heuristic_type):
                         queue[i] = (cost, (neighbour, node, move, new_level))
                         hq.heapify(queue)
                         break
-                else:                                
-                    hq.heappush(queue, (cost, (neighbour, node, move, new_level)))
                 states[neighbour] = cost
     return None

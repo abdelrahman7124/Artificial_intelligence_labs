@@ -3,16 +3,16 @@ import GameBoard as gb
 def dfs(initial_state): 
     STACK = []
     states = set()
-    VISITED = {}
+    VISITED = set()
     
     STACK.append((initial_state, None, None))
     states.add(initial_state)
     
     while STACK:
         node = STACK.pop()
-        state,parent,last_move = node
+        state = node[0]
         states.remove(state)
-        VISITED[state] = (parent,last_move)
+        VISITED.add(state)
         
         if gb.is_goal(state):
             return gb.get_path_from_node(node)

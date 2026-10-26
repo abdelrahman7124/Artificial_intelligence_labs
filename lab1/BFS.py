@@ -1,18 +1,19 @@
 import GameBoard as gb
+from collections import deque
 
 def bfs(initial_state): 
-    QUEUE = []
+    QUEUE = deque()
     states = set()
-    VISITED = {}
+    VISITED = set()
     
     QUEUE.append((initial_state, None, None))
     states.add(initial_state)
     
     while QUEUE:
-        node = QUEUE.pop(0)
-        state,parent,last_move = node
+        node = QUEUE.popleft()
+        state = node[0]
         states.remove(state)
-        VISITED[state] = (parent,last_move)
+        VISITED.add(state)
         
         if gb.is_goal(state):
             return gb.get_path_from_node(node)
