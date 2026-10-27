@@ -38,6 +38,8 @@ def a_star(initial_state,heuristic_type):
     queue = []
     states = {}
     visited = set()
+    nodes_expanded = 0
+    max_depth_reached = 0
     
     hq.heappush(queue, (0, (initial_state, None, None, 0)))
     visited.add(initial_state)
@@ -49,8 +51,10 @@ def a_star(initial_state,heuristic_type):
         visited.add(state)
 
         if gb.is_goal(state):
-            return gb.get_path_from_node(node)
+            path,cost = gb.get_path_from_node(node)
+            return path,cost,nodes_expanded,max_depth_reached
 
+        nodes_expanded += 1
         for move, neighbour in gb.get_neighbours(state).items():
             new_level = level + 1
             cost = new_level + heuristic_function(neighbour)
@@ -58,6 +62,8 @@ def a_star(initial_state,heuristic_type):
             if neighbour not in visited and neighbour not in states:
                 hq.heappush(queue, (cost, (neighbour, node, move, new_level)))
                 states[neighbour] = cost
+                if new_level > max_depth_reached:
+                    max_depth_reached = new_level
 
             elif neighbour in states and cost < states[neighbour]:
                 for i in range(len(queue)):
