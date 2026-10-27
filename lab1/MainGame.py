@@ -6,7 +6,7 @@ import A_STAR as a_star
 
 
 
-initial_state = (1, 2, 7, 3, 4, 0, 6, 8, 5)
+initial_state = (1, 2, 5, 3, 4, 0, 6, 7, 8)
 
 
 def print_result(name,result,running_time):
@@ -23,22 +23,22 @@ def print_result(name,result,running_time):
 
 
 
-start_time = time.time()
+start_time = time.perf_counter()
 result_ids = ids.ids(initial_state)
-print_result("IDS",result_ids,time.time() - start_time)
+print_result("IDS",result_ids,time.perf_counter() - start_time)
 
-start_time = time.time()
+start_time = time.perf_counter()
 result_bfs = bfs.bfs(initial_state)
-print_result("BFS",result_bfs,time.time() - start_time)
+print_result("BFS",result_bfs,time.perf_counter() - start_time)
 
-start_time = time.time()
+start_time = time.perf_counter()
 result_a_star_manhattan = a_star.a_star(initial_state,"manhattan")
-print_result("A* with Manhattan heuristic",result_a_star_manhattan,time.time() - start_time)
+print_result("A* with Manhattan heuristic",result_a_star_manhattan,time.perf_counter() - start_time)
 
-start_time = time.time()
+start_time = time.perf_counter()
 result_a_star_euclidean = a_star.a_star(initial_state,"euclidean")
-print_result("A* with Euclidean heuristic",result_a_star_euclidean,time.time() - start_time)
+print_result("A* with Euclidean heuristic",result_a_star_euclidean,time.perf_counter() - start_time)
 
-start_time = time.time()
+start_time = time.perf_counter()
 result_dfs = dfs.dfs(initial_state)
-print_result("DFS",result_dfs,time.time() - start_time)
+print_result("DFS",result_dfs,time.perf_counter () - start_time)
