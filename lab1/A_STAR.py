@@ -48,6 +48,7 @@ def a_star(initial_state,heuristic_type):
     while queue:
         _, node = hq.heappop(queue)
         state, parent, last_move, level = node
+        states.pop(state, None)
         visited.add(state)
 
         if gb.is_goal(state):
