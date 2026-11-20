@@ -1,12 +1,4 @@
-"""
-heuristic.py - evaluates a board for the AI.
-
-Returns a number: positive = good for the AI, negative = good for the human.
-It looks at every 4-cell window (every place a four can be made) and scores
-how close each window is to becoming a four, plus a bonus for center control.
-"""
-
-from board import EMPTY, HUMAN, AI
+import board as bd
 
 # ---- weights ----
 FOUR_WEIGHT = 1000    # a completed four (a real point)
@@ -45,8 +37,8 @@ def get_windows(board):
 
 def score_window(window):
     """Points for one window: positive for AI, negative for human."""
-    ai = window.count(AI)
-    human = window.count(HUMAN)
+    ai = window.count(bd.AI)
+    human = window.count(bd.HUMAN)
 
     # both players inside -> nobody can ever make a four here
     if ai > 0 and human > 0:
@@ -80,9 +72,9 @@ def evaluate(board):
     # 4) center control
     center = board.cols // 2
     for r in range(board.rows):
-        if board.board[r][center] == AI:
+        if board.board[r][center] == bd.AI:
             score += CENTER_WEIGHT
-        elif board.board[r][center] == HUMAN:
+        elif board.board[r][center] == bd.HUMAN:
             score -= CENTER_WEIGHT
 
     return score
