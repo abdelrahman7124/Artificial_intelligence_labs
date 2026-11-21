@@ -1,3 +1,4 @@
+import time
 import tkinter as tk
 from tkinter import ttk
 from tkinter import messagebox
@@ -143,7 +144,10 @@ class Connect4GUI:
         self.root.after(50,self.ai_turn)
         
     def ai_turn(self):
+        # 2es2al el ai 3ala el move we e7seb el wa2t elly 5adoh
+        start = time.perf_counter()
         column,_ = self.ai.decision(self.board)
+        elapsed = (time.perf_counter() - start) * 1000
         aimed = column
         if isinstance(self.ai, Expectiminimax):
             outcomes = self.board.drop_distribution(column)
@@ -159,7 +163,8 @@ class Connect4GUI:
         self.ai_thinking = False
         if self.check_game_over():
             return
-        self.update_status(f"AI aimed at {aimed}, played column {column} row {row} | nodes expanded: {self.ai.nodes_expanded} | Your turn")
+        print(f"AI aimed at {aimed}, played column {column} | nodes expanded: {self.ai.nodes_expanded} | time: {elapsed:.1f} ms")
+        self.update_status(f"AI aimed at {aimed}, played column {column} row {row} | nodes expanded: {self.ai.nodes_expanded} | time: {elapsed:.0f} ms | Your turn")
         
     def update_status(self, message):
         human_score = self.board.count_fours(HUMAN)
