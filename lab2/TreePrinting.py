@@ -1,10 +1,10 @@
 class TreeNode:
     def __init__(self, kind, move=None):
-        self.kind = kind        # "MAX", "MIN" or "LEAF"
-        self.move = move        # column played to reach this node
+        self.kind = kind        
+        self.move = move        
         self.value = None
         self.children = []
-        self.pruned = []        # alpha-beta only: columns skipped
+        self.pruned = []        
 
 
 def print_tree(node, prefix="", is_last=True, is_root=True):

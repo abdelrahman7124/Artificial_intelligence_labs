@@ -19,8 +19,8 @@ class Board:
 
     def valid_moves(self):
         '''
-        We began with the center first as it is normally the best move
-        so the alpha beta pruning will eventually prune alot of values
+        2ebd2 beh el nos 3lshan heya feh el 2a8lb hateb2a 3andaha 2ahsn haga 
+        fah el pruning momken yeshel branches 2aktar
         '''
         middle = self.cols // 2 
         moves = []
@@ -33,9 +33,7 @@ class Board:
         return moves
 
     def drop(self, col, player):
-        '''
-        We return the row for the gui to know where to draw the shape 
-        '''
+        # rag3 el row 3lshan te3raf tersem feh el gui
         row = self.heights[col]
         self.board[row][col] = player
         self.heights[col] += 1
@@ -43,7 +41,7 @@ class Board:
         return row
 
     def undo(self, col):
-        # reverse of drop
+        #2e3ks el tarteb
         row = self.heights[col] - 1
         self.board[row][col] = EMPTY
         self.heights[col] -= 1
@@ -54,8 +52,8 @@ class Board:
 
     def count_fours(self, player):
         fours = 0
-        # check horizontal
         
+        # horizontal
         for i in range(self.rows):
             count = 0
             for j in range(self.cols):
@@ -67,7 +65,7 @@ class Board:
                     fours += 1
                     count -= 1
             
-        # check vertical
+        # vertical
         for j in range(self.cols):
             count = 0
             for i in range(self.rows):
@@ -78,8 +76,7 @@ class Board:
                 if count == 4:
                     fours += 1
                     count -= 1
-        # check diagonal /  (up-right)
-        # every / diagonal starts on the bottom row or the left column
+        # check diagonal /  
         starts = [(0, j) for j in range(self.cols)] + [(i, 0) for i in range(1, self.rows)]
         for i, j in starts:
             count = 0
@@ -94,8 +91,7 @@ class Board:
                 i += 1
                 j += 1
 
-        # check diagonal \  (up-left)
-        # every \ diagonal starts on the bottom row or the right column
+        # check diagonal \ 
         starts = [(0, j) for j in range(self.cols)] + [(i, self.cols - 1) for i in range(1, self.rows)]
         for i, j in starts:
             count = 0
@@ -117,29 +113,3 @@ class Board:
         symbols = {EMPTY: '.', HUMAN: 'H', AI: 'A'}
         for row in reversed(self.board):
             print(*[symbols[cell] for cell in row])
-
-def main():
-    #some test cases to see make sure the functions are correct
-    sol = Board()
-    for i in range(7):
-        sol.drop(i,HUMAN)
-    sol.drop(1,AI)
-    sol.drop(2, HUMAN)
-    
-    sol.drop(2,AI)
-    sol.drop(3,HUMAN)
-    sol.drop(3,HUMAN)
-    
-    sol.drop(3,AI)
-    sol.drop(4,HUMAN)
-    sol.drop(4,HUMAN)
-    sol.drop(4,HUMAN)
-    sol.drop(4,AI)
-    sol.print_board()
-    human_score = sol.count_fours(HUMAN)
-    Ai_score = sol.count_fours(AI)
-    print(human_score)
-    print(Ai_score)
-    
-if __name__ == "__main__":
-    main()

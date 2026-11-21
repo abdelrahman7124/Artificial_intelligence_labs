@@ -1,7 +1,3 @@
-"""
-play_terminal.py - play Connect 4 against the AI in the terminal.
-Used to test the algorithms and the tree printing before the GUI.
-"""
 import time
 from board import Board, HUMAN, AI
 from minimax import Minimax
@@ -10,7 +6,6 @@ from TreePrinting import print_tree
 
 
 def ask_int(prompt, default, low=None, high=None):
-    """Read an integer from the user (Enter = default)."""
     while True:
         text = input(f"{prompt} [{default}]: ").strip()
         if text == "":
@@ -23,7 +18,7 @@ def ask_int(prompt, default, low=None, high=None):
 
 
 def show(board):
-    """Board + column numbers + current score."""
+    # Board + column numbers + current score
     print()
     board.print_board()
     print(*[c % 10 for c in range(board.cols)])
