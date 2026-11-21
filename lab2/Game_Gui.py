@@ -3,6 +3,8 @@ from tkinter import ttk
 from tkinter import messagebox
 from board import Board, EMPTY, HUMAN, AI
 from minimax import Minimax
+from expectiminmax import Expectiminimax
+import random
 from alpha_beta_pruning import Minimax_Alpha_Beta
 from TreePrinting import print_tree
 from tree_gui import TreeGui
@@ -12,7 +14,7 @@ COLORS = {EMPTY: "white", HUMAN: "red", AI: "yellow"}
 ALGORITHMS = {
     "minimax without pruning": Minimax,
     "minimax with pruning": Minimax_Alpha_Beta,
-    # "expectiminimax": Expectiminimax,      
+    "expectiminimax": Expectiminimax,      
 }
 
 def get_rows_columns():
@@ -106,7 +108,10 @@ class Connect4GUI:
         self.draw_board()
         
     def draw_tree(self):
-        TreeGui(self.root, self.ai.root,self.k)
+        levels = self.k
+        if isinstance(self.ai, Expectiminimax):
+            levels = self.k + (self.k + 1) // 2
+        TreeGui(self.root, self.ai.root, levels)
         
     def draw_board(self):
         self.canvas.delete("all")
@@ -139,6 +144,12 @@ class Connect4GUI:
         
     def ai_turn(self):
         column,_ = self.ai.decision(self.board)
+        aimed = column
+        if isinstance(self.ai, Expectiminimax):
+            outcomes = self.board.drop_distribution(column)
+            columns = [c for c, p in outcomes]
+            probs = [p for c, p in outcomes]
+            column = random.choices(columns, weights=probs)[0]
         row = self.board.drop(column,AI)
         print_tree(self.ai.root)
         
@@ -148,8 +159,8 @@ class Connect4GUI:
         self.ai_thinking = False
         if self.check_game_over():
             return
-        self.update_status(f"AI played column {column} row {row} | nodes expanded: {self.ai.nodes_expanded} | Your turn")
-    
+        self.update_status(f"AI aimed at {aimed}, played column {column} row {row} | nodes expanded: {self.ai.nodes_expanded} | Your turn")
+        
     def update_status(self, message):
         human_score = self.board.count_fours(HUMAN)
         ai_score = self.board.count_fours(AI)

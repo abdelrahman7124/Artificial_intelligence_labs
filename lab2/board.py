@@ -107,6 +107,18 @@ class Board:
                 j -= 1
 
         return fours
+    
+    def drop_distribution(self, col):
+        left = self.is_valid(col - 1)
+        right = self.is_valid(col + 1)
+
+        if left and right:
+            return [(col,0.6),(col - 1,0.2),(col + 1,0.2)]
+        if left:
+            return [(col,0.6),(col - 1,0.4)]
+        if right:
+            return [(col,0.6),(col + 1,0.4)]
+        return [(col,1.0)]
 
 
     def print_board(self):

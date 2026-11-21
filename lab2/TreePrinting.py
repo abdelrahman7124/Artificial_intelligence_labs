@@ -7,14 +7,17 @@ class TreeNode:
         self.pruned = []        
         self.alpha = None
         self.beta = None
+        self.prob = None
 
 
 def print_tree(node, prefix="", is_last=True, is_root=True):
-    text = f"{node.kind}  value={node.value}"
+    text = f"{node.kind}  value={round(node.value, 2)}"
     if node.move is not None:
         text = f"col {node.move}: " + text
     if node.pruned:
         text += f"  PRUNED {node.pruned}"
+    if node.prob is not None:
+        text += f"  p={node.prob}"
 
     if is_root:
         print(text)
