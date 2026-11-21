@@ -5,6 +5,8 @@ class TreeNode:
         self.value = None
         self.children = []
         self.pruned = []        
+        self.alpha = None
+        self.beta = None
 
 
 def print_tree(node, prefix="", is_last=True, is_root=True):

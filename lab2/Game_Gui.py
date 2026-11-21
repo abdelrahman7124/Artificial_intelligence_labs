@@ -5,6 +5,7 @@ from board import Board, EMPTY, HUMAN, AI
 from minimax import Minimax
 from alpha_beta_pruning import Minimax_Alpha_Beta
 from TreePrinting import print_tree
+from tree_gui import TreeGui
 
 CELL = 80
 COLORS = {EMPTY: "white", HUMAN: "red", AI: "yellow"}
@@ -78,6 +79,7 @@ def get_rows_columns():
 
 class Connect4GUI:
     def __init__(self, root, rows, cols,k,algorithm):
+        self.k = k
         self.root = root
         self.board = Board(rows, cols)
         self.ai = ALGORITHMS[algorithm](k)    
@@ -95,9 +97,17 @@ class Connect4GUI:
         # 2erg3 3lshan te5tar el rows we el columns tany
         self.new_game_button = tk.Button(root, text="New game", command=self.new_game)
         self.new_game_button.pack(pady=5)
+        
+        self.tree_button = tk.Button(root, text="Draw Tree", command=self.draw_tree)
+        self.tree_button.pack(pady=5)
+
+        
 
         self.draw_board()
-
+        
+    def draw_tree(self):
+        TreeGui(self.root, self.ai.root,self.k)
+        
     def draw_board(self):
         self.canvas.delete("all")
         for i in range(self.board.rows):

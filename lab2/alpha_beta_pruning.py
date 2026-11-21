@@ -18,6 +18,8 @@ class Minimax_Alpha_Beta:
         return self.maximize(board,self.depth,self.alpha,self.beta,self.root)
 
     def maximize(self, board, depth,alpha,beta,node):
+        node.alpha = alpha
+        node.beta = beta
         if board.is_full():
             node.kind = "LEAF"
             node.value = FOUR_WEIGHT * (board.count_fours(bd.AI) - board.count_fours(bd.HUMAN))
@@ -51,12 +53,17 @@ class Minimax_Alpha_Beta:
                 alpha = max_value
                 
         self.nodes_expanded += 1
+        
+        node.alpha = max(alpha, max_value)
+        node.beta = beta
         node.value = max_value
             
         return best_move,max_value
             
 
     def minimize(self, board, depth,alpha,beta,node):
+        node.alpha = alpha
+        node.beta = beta
         if board.is_full():
             node.kind = "LEAF"
             node.value = FOUR_WEIGHT * (board.count_fours(bd.AI) - board.count_fours(bd.HUMAN))
@@ -90,6 +97,10 @@ class Minimax_Alpha_Beta:
                 beta = min_value
                 
         self.nodes_expanded += 1
-        node.value = min_value
         
+
+        node.alpha = alpha
+        node.beta = min(beta, min_value)
+        node.value = min_value
+                
         return best_move,min_value
