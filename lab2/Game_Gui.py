@@ -103,7 +103,9 @@ class Connect4GUI:
         
         self.tree_button = tk.Button(root, text="Draw Tree", command=self.draw_tree)
         self.tree_button.pack(pady=5)
-
+        
+        self.tree_terminal_button = tk.Button(root, text="Draw Tree Terminal", command=self.draw_tree_terminal)
+        self.tree_terminal_button.pack(pady=5)
         
 
         self.draw_board()
@@ -113,6 +115,12 @@ class Connect4GUI:
         if isinstance(self.ai, Expectiminimax):
             levels = self.k + (self.k + 1) // 2
         TreeGui(self.root, self.ai.root, levels)
+        
+    def draw_tree_terminal(self):
+        if self.ai.root:
+            print_tree(self.ai.root)
+        else:
+            print("No tree yet - let the AI play first.")
         
     def draw_board(self):
         self.canvas.delete("all")
@@ -155,7 +163,6 @@ class Connect4GUI:
             probs = [p for c, p in outcomes]
             column = random.choices(columns, weights=probs)[0]
         row = self.board.drop(column,AI)
-        print_tree(self.ai.root)
         
         self.draw_board()
         
