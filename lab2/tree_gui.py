@@ -3,7 +3,7 @@ import tkinter as tk
 NODE_W = 70
 NODE_H = 38
 X_GAP = 27
-Y_GAP = 30    
+Y_GAP = 150    
 COLORS = {"MAX": "lightgreen", "MIN": "pink", "CHANCE": "lightblue", "LEAF": "lightgray"}
 
 
